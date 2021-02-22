@@ -14,11 +14,24 @@ export const addUser = async (req:Request, res:Response):Promise<Response> => {
 }
 
 export const getUser = async (req:Request, res:Response):Promise<Response> =>{ 
-   const foundUser = await getRepository(User).findOne(req.params);
+   console.log(req.params.id);
+   
+   const foundUser = await getRepository(User).findOne(req.params.id);
    return res.json(foundUser)
 }
 
-export const deleteUser = async (req:Request, res: Response) => {
+export const deleteUser = async (req:Request, res: Response):Promise<Response> => {
    console.log("user deleted",req.params);
-   /* const deleted = await getRepository(User).delete(req.params); */
+   const deletedUser = await getRepository(User).delete(req.params.id);
+   return res.json(deletedUser);
+}
+
+export const updateUser = async (req:Request, res:Response):Promise<Response> => {
+   const user = await getRepository(User).findOne(req.params.id);
+   if(user){
+      getRepository(User).merge(user, req.body);
+      const result = await getRepository(User).save(user);
+      return res.json(result);
+   }
+   return res.status(404).json({message:"No user found"});
 }
