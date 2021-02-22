@@ -14,14 +14,11 @@ export const addUser = async (req:Request, res:Response):Promise<Response> => {
 }
 
 export const getUser = async (req:Request, res:Response):Promise<Response> =>{ 
-   console.log(req.params.id);
-   
    const foundUser = await getRepository(User).findOne(req.params.id);
    return res.json(foundUser)
 }
 
 export const deleteUser = async (req:Request, res: Response):Promise<Response> => {
-   console.log("user deleted",req.params);
    const deletedUser = await getRepository(User).delete(req.params.id);
    return res.json(deletedUser);
 }

@@ -5,19 +5,7 @@ import bodyParser from 'body-parser'
 import {createConnection} from 'typeorm';
 import User from './model/user.model'
 const app = express();
-createConnection(
-   {
-      type:"postgres",
-      host:"142.93.126.134",
-      port:5432,
-      username:"postgres",
-      password:"devdb2021",
-      database:"test",
-      synchronize:true,
-      entities:[User]
-   })
-.then((connection) => console.log("connection succes"))
-.catch(error => console.log(error));
+createConnection();
 /* Middleware */
 app.use(bodyParser.urlencoded({extended:true}));
 
